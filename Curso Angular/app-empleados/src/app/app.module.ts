@@ -14,6 +14,11 @@ import { ProyectosComponentComponent } from './proyectos-component/proyectos-com
 import { ContactoComponentComponent } from './contacto-component/contacto-component.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ActualizaComponentComponent } from './actualiza-component/actualiza-component.component';
+import { ErrorPersonalizadoComponent } from './error-personalizado/error-personalizado.component';
+import { DataServices } from './data.services';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 const appRoutes: Routes=[
 
@@ -22,8 +27,10 @@ const appRoutes: Routes=[
   {path:'quienes', component:QuienesComponentComponent},
   {path:'contacto', component:ContactoComponentComponent},
   {path:'actualiza/:id', component:ActualizaComponentComponent},
+  {path:'##', component:ErrorPersonalizadoComponent}
 
-]
+
+];
 
 @NgModule({
   declarations: [
@@ -35,6 +42,7 @@ const appRoutes: Routes=[
     ProyectosComponentComponent,
     ContactoComponentComponent,
     ActualizaComponentComponent,
+    ErrorPersonalizadoComponent,
     
 
 
@@ -42,9 +50,12 @@ const appRoutes: Routes=[
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+
+    
   ],
-  providers: [ServicioEmpleadosService,EmpleadoService],
+  providers: [ServicioEmpleadosService,EmpleadoService, DataServices],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
