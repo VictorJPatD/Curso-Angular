@@ -72,12 +72,17 @@ export class EmpleadoService{
 
         this.dataService.actualizarEmpleado(indice,empleado);
 
+        // window.location.reload();
+
       }
 
       eliminarEmpleado(indice:number){
 
         this.empleados.splice(indice,1);
 
+        this.dataService.eliminarEmpleado(indice);
+
+        if(this.empleados!=null) this.dataService.guardarEmpleados(this.empleados);
 
       }
 }

@@ -1,17 +1,18 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 import { Empleado } from "./empleado.model";
+import { LoginService } from "./login/login.service";
 
 @Injectable()
 export class DataServices{
 
-    constructor(private httpClient:HttpClient){}
+    constructor(private httpClient:HttpClient, private loginService:LoginService){}
 
 
     cargarEmpleados(){
 
-
-        return this.httpClient.get('https://mis-clientes-e105f-default-rtdb.firebaseio.com/datos.json');
+        const token=this.loginService.getIdToken();
+        return this.httpClient.get('https://mis-clientes-e105f-default-rtdb.firebaseio.com/datos.json?auth=' + token);
     }
 
 
@@ -37,13 +38,28 @@ export class DataServices{
 
         this.httpClient.put(url, empleado).subscribe(
 
-            response=>console.log("Se ha modificado correctament el empleado: " + response),
+            response=>console.log("Se ha modificado correctamente el empleado: " + response),
+    
+            error=> console.log("Error: " + error),
+
+            
+            );
+
+
+    }
+    
+ eliminarEmpleado(indice:number){
+
+        let url='https://mis-clientes-e105f-default-rtdb.firebaseio.com/datos/' + indice + '.json';
+
+
+        this.httpClient.delete(url).subscribe(
+
+            response=>console.log("Se ha eliminado correctament el empleado: " + response),
     
             error=> console.log("Error: " + error),
 
             );
     }
-    
-
 
 }
